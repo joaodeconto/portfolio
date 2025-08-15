@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfólio • One‑File</title>
+  <meta name="description" content="Portfólio estático em um único arquivo HTML. Edite o JSON abaixo e publique no GitHub Pages." />
+  <style>
+    :root{
+      --bg:#0b0c0f; --panel:#141720; --soft:#1b2030; --text:#eef1f5; --muted:#a9b2c3; --accent:#6ee7ff; --ring:#2a3348;
+    }
+    @media (prefers-color-scheme: light) {
+      :root{ --bg:#f5f7fb; --panel:#ffffff; --soft:#eef2f9; --text:#0b1220; --muted:#5b6475; --accent:#006dff; --ring:#cfd8ea; }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1200px 800px at 10% -10%, rgba(110,231,255,.08), transparent 60%),
+           radial-gradient(800px 600px at 100% 0%, rgba(0,109,255,.08), transparent 60%), var(--bg); color:var(--text);
+         font: 500 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"}
+    a{color:inherit}
+    header{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(6px);background:color-mix(in oklab,var(--bg) 80%, transparent); z-index:5}
+    .wrap{max-width:1100px;margin-inline:auto;padding:20px}
+    .hero{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .title{font-size:clamp(22px,4vw,30px);font-weight:800;letter-spacing:.2px}
+    .subtitle{color:var(--muted)}
+
+    .toolbar{display:grid;grid-template-columns:1fr auto;gap:12px;margin-top:14px}
+    #q{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--ring);background:var(--panel);color:var(--text);outline:none}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{border:1px solid var(--ring);background:var(--panel);padding:8px 12px;border-radius:999px;cursor:pointer; user-select:none}
+    .chip[data-active="true"]{outline:2px solid color-mix(in oklab, var(--accent) 60%, transparent);}
+
+    .grid{display:grid;grid-template-columns:repeat( auto-fill, minmax(260px,1fr) );gap:16px}
+    .card{background:linear-gradient(180deg,var(--panel),color-mix(in oklab,var(--panel) 70%,#000 30%));border:1px solid var(--ring);border-radius:18px;overflow:hidden; display:flex;flex-direction:column}
+    .media{aspect-ratio:16/9;background:var(--soft);position:relative}
+    .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .media .badge{position:absolute;top:8px;left:8px;background:color-mix(in oklab,var(--accent) 30%, #000 70%);color:#fff;font-size:12px;padding:4px 8px;border-radius:999px}
+    .body{padding:14px 14px 10px 14px;display:flex;gap:10px;flex-direction:column}
+    .name{font-weight:750}
+    .desc{color:var(--muted);font-size:14px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:4px 8px;border:1px solid var(--ring);border-radius:999px;color:var(--muted)}
+    .footer{margin-top:auto;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--ring)}
+    .btn{padding:8px 12px;border-radius:12px;border:1px solid var(--ring);background:var(--soft);text-decoration:none}
+
+    .empty{opacity:.7;text-align:center;padding:40px}
+    .sr-only{position:absolute;width:1px;height:1px;margin:-1px;border:0;padding:0;clip:rect(0 0 0 0);overflow:hidden}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <div class="title">Seu Portfólio • <span id="count">0</span> projetos</div>
+          <div class="subtitle">Edite o JSON no fim do arquivo → publique no GitHub Pages → compartilhe o link.</div>
+        </div>
+        <div>
+          <a class="btn" href="#como-publicar">Como publicar</a>
+        </div>
+      </div>
+      <div class="toolbar" role="search">
+        <label class="sr-only" for="q">Buscar</label>
+        <input id="q" placeholder="Buscar por título, descrição ou tag…" autocomplete="off" />
+        <div class="chips" id="chips"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="grid" id="grid" aria-live="polite"></section>
+    <div id="empty" class="empty" hidden>Nenhum projeto encontrado. Ajuste a busca ou tags.</div>
+
+    <hr style="margin:40px 0;border:0;border-top:1px dashed var(--ring)" />
+
+    <section id="como-publicar">
+      <h2>Como publicar (GitHub Pages – 3 passos)</h2>
+      <ol>
+        <li>Crie um repositório no GitHub chamado <strong>portfolio</strong> (ou qualquer nome).</li>
+        <li>Coloque <code>index.html</code> (este arquivo) na raiz e faça o commit.</li>
+        <li>Vá em <strong>Settings → Pages</strong>, selecione <em>Deploy from a branch</em>, branch <strong>main</strong>, pasta <strong>/root</strong>. O GitHub gera uma URL pública. Pronto.</li>
+      </ol>
+      <p>Dica: personalize os projetos editando o JSON no final deste arquivo (procure por <code>&lt;script id="data" type="application/json"&gt;</code>).</p>
+    </section>
+  </main>
+
+  <!-- Dados: edite aqui -->
+  <script id="data" type="application/json">{
+    "projects": [
+      {
+        "name": "Imagem→PNG Transparente (Lote)",
+        "date": "2025-08-01",
+        "desc": "Ferramenta local que remove fundo de imagens em lote e exporta PNG com margem.",
+        "tags": ["python","imagem","cli"],
+        "links": {"repo": "https://github.com/usuario/img-transparente", "demo": ""},
+        "thumb": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        "name": "CSV Diff Visual",
+        "date": "2025-07-22",
+        "desc": "Compara duas versões de CSV e destaca alterações, adições e remoções.",
+        "tags": ["web","js","dados"],
+        "links": {"repo": "https://github.com/usuario/csv-diff-visual", "demo": ""},
+        "thumb": "https://images.unsplash.com/photo-1529078155058-5d716f45d604?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        "name": "Job Tracker Lite",
+        "date": "2025-07-10",
+        "desc": "Rastreador local de vagas: salva título, empresa, link e status em CSV.",
+        "tags": ["produtividade","python"],
+        "links": {"repo": "https://github.com/usuario/job-tracker-lite", "demo": ""},
+        "thumb": "https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        "name": "Docs Tidy (BR)",
+        "date": "2025-06-30",
+        "desc": "Renomeia PDFs brasileiros (NF-e, boletos, CNH) lendo texto e organiza em pastas.",
+        "tags": ["python","ocr","br"],
+        "links": {"repo": "https://github.com/usuario/br-docs-tidy", "demo": ""},
+        "thumb": "https://images.unsplash.com/photo-1543286386-2e659306cd6c?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        "name": "Audio→Task",
+        "date": "2025-06-18",
+        "desc": "Transcreve um áudio e gera checklist em Markdown com prazos.",
+        "tags": ["python","áudio","cli"],
+        "links": {"repo": "https://github.com/usuario/audio-to-task", "demo": ""},
+        "thumb": "https://images.unsplash.com/photo-1526178610353-7413fd580fc6?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        "name": "Static Docs Site",
+        "date": "2025-05-28",
+        "desc": "Gera site estático a partir de .md, com busca offline.",
+        "tags": ["web","docs"],
+        "links": {"repo": "https://github.com/usuario/static-docs-site", "demo": ""},
+        "thumb": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop"
+      }
+    ]
+  }</script>
+
+  <script>
+  const state={all:[],tags:new Set(),q:"",activeTags:new Set()}
+  const $=(q,el=document)=>el.querySelector(q); const $$=(q,el=document)=>[...el.querySelectorAll(q)]
+
+  function load(){
+    const json = JSON.parse(document.getElementById('data').textContent)
+    state.all = json.projects.map((p,i)=>({...p, id:i}))
+      .sort((a,b)=> (b.date||'').localeCompare(a.date||''))
+    state.tags = new Set(state.all.flatMap(p=>p.tags||[]))
+    renderChips(); filter();
+  }
+
+  function renderChips(){
+    const box = document.getElementById('chips'); box.innerHTML=''
+    ;['tudo',...Array.from(state.tags).sort()].forEach(tag=>{
+      const b=document.createElement('button');
+      b.className='chip'; b.textContent=tag; b.dataset.tag=tag
+      b.dataset.active = tag==='tudo'
+      b.onclick=()=>{
+        if(tag==='tudo'){ state.activeTags.clear() }
+        else{
+          if(state.activeTags.has(tag)) state.activeTags.delete(tag); else state.activeTags.add(tag)
+        }
+        // marcar visual
+        $$('.chip',box).forEach(el=>{
+          const t=el.dataset.tag
+          el.dataset.active = (tag==='tudo') ? (t==='tudo') : (t!=='tudo' && state.activeTags.has(t))
+        })
+        filter()
+      }
+      box.appendChild(b)
+    })
+  }
+
+  function filter(){
+    const q = ($('#q').value||'').toLowerCase();
+    const byText = p=> (p.name+" "+(p.desc||'')+" "+(p.tags||[]).join(' ')).toLowerCase().includes(q)
+    const byTags = p=> state.activeTags.size===0 || (p.tags||[]).some(t=>state.activeTags.has(t))
+    const list = state.all.filter(p=>byText(p) && byTags(p))
+    $('#count').textContent = list.length
+    renderGrid(list)
+  }
+
+  function renderGrid(list){
+    const grid=$('#grid'); grid.innerHTML=''
+    if(!list.length){ $('#empty').hidden=false; return } else $('#empty').hidden=true
+    list.forEach(p=>{
+      const card=document.createElement('article'); card.className='card'
+      const media=document.createElement('div'); media.className='media'
+      if(p.thumb){ const img=new Image(); img.loading='lazy'; img.src=p.thumb; media.appendChild(img) }
+      const b=document.createElement('span'); b.className='badge'; b.textContent=new Date(p.date).toLocaleDateString('pt-BR'); media.appendChild(b)
+      const body=document.createElement('div'); body.className='body'
+      const h=document.createElement('div'); h.className='name'; h.textContent=p.name; body.appendChild(h)
+      const d=document.createElement('div'); d.className='desc'; d.textContent=p.desc||''; body.appendChild(d)
+      const meta=document.createElement('div'); meta.className='meta';
+      (p.tags||[]).forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; meta.appendChild(s) });
+      body.appendChild(meta)
+      const foot=document.createElement('div'); foot.className='footer'
+      const left=document.createElement('div'); left.innerHTML='&nbsp;'
+      const right=document.createElement('div');
+      if(p.links?.demo){ const a=document.createElement('a'); a.className='btn'; a.href=p.links.demo; a.target='_blank'; a.rel='noopener'; a.textContent='Demo'; right.appendChild(a) }
+      if(p.links?.repo){ const a=document.createElement('a'); a.className='btn'; a.href=p.links.repo; a.target='_blank'; a.rel='noopener'; a.textContent='Repo'; right.appendChild(a) }
+      foot.append(left,right)
+
+      card.append(media,body,foot)
+      grid.appendChild(card)
+    })
+  }
+
+  document.addEventListener('input', e=>{ if(e.target.id==='q') filter() })
+  load()
+  </script>
+</body>
+</html>
