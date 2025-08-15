@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfólio Imediato • 2025/08/15</title>
   <meta name="description" content="Portfólio estático em um único arquivo HTML. Edite o JSON abaixo e publique no GitHub Pages." />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Portfólio Imediato — João de Conto" />
+  <meta property="og:description" content="Projetos de 10 minutos — one‑file utilities e demos." />
+  <!-- Substitua pela URL pública do seu GitHub Pages quando publicar -->
+  <meta property="og:url" content="https://seuusuario.github.io/portfolio/" />
+  <meta property="og:image" content="https://seuusuario.github.io/portfolio/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="logo.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="logo.png" type="image/png" />
   <style>
     :root{
       --bg:#0b0c0f; --panel:#141720; --soft:#1b2030; --text:#eef1f5; --muted:#a9b2c3; --accent:#6ee7ff; --ring:#2a3348;
@@ -21,7 +33,7 @@
     header{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(6px);background:color-mix(in oklab,var(--bg) 80%, transparent); z-index:5}
     .wrap{max-width:1100px;margin-inline:auto;padding:20px}
     .hero{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .title{font-size:clamp(22px,4vw,30px);font-weight:800;letter-spacing:.2px}
+    .title{font-size:clamp(22px,4vw,30px);font-weight:800;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
     .subtitle{color:var(--muted)}
 
     .toolbar{display:grid;grid-template-columns:1fr auto;gap:12px;margin-top:14px}
@@ -45,6 +57,7 @@
 
     .empty{opacity:.7;text-align:center;padding:40px}
     .sr-only{position:absolute;width:1px;height:1px;margin:-1px;border:0;padding:0;clip:rect(0 0 0 0);overflow:hidden}
+    .logo{width:28px;height:28px;color:var(--text);}
   </style>
 </head>
 <body>
@@ -52,11 +65,12 @@
     <div class="wrap">
       <div class="hero">
         <div>
-          <div class="title">Portfólio Imediato • <span id="count">0</span> projetos</div>
+          <div class="title"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="4"/><path d="M16 38c6-8 26-8 32 0M20 46c8-10 16-10 24 0M18 26c10-6 18-6 28 0" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/></svg> <span>Portfólio Imediato • <span id="count">0</span> projetos</div>
           <div class="subtitle">Projetos de 10 minutos</div>
         </div>
-        <div>
-          <a class="btn" href="#como-publicar">Contato</a>
+        <div class="contact-buttons" style="display:flex; gap:8px">
+          <a class="btn" href="mailto:joaovicentedeconto@gmail.com?subject=Projeto%20VR/MR&body=Oi%20Jo%C3%A3o%2C%20vi%20o%20seu%20portf%C3%B3lio%20e%20queria%20falar%20sobre%20um%20projeto." title="Enviar e‑mail">E‑mail</a>
+          <a class="btn" href="https://wa.me/5551999933713?text=Ol%C3%A1%2C%20vi%20seu%20portf%C3%B3lio%20e%20queria%20falar%20sobre%20um%20projeto" target="_blank" rel="noopener" title="Chamar no WhatsApp">WhatsApp</a>
         </div>
       </div>
       <div class="toolbar" role="search">
@@ -76,8 +90,8 @@
     <section id="como-publicar">
       <h2>Contato</h2>
       <ol>
-        <li>email • <strong>joaovicentedeconto@gmail.com</strong></li>
-        <li>whats • <strong>+55(51)999933713<strong></li>
+        <li>email • <a href="mailto:joaovicentedeconto@gmail.com">joaovicentedeconto@gmail.com</a></li>
+        <li>whats • <a href="https://wa.me/5551999933713" target="_blank" rel="noopener">+55 (51) 99993‑3713</a></li>
       </ol>      
     </section>
   </main>
